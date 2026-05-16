@@ -1,3 +1,7 @@
+[build]
+  publish = "."
+  command = "npm install"
+
 # Security headers for all routes
 [[headers]]
   for = "/*"
