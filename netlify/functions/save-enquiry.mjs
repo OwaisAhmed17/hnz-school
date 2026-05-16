@@ -13,7 +13,7 @@ export default async (req) => {
   }
 
   // Only handle submissions from the enquiry form on this site
-  if (payload.form_name !== 'enquiry' || payload.site_id !== '8e06ad54-5353-4fa8-9d09-e80826ac0fe2') {
+  if (payload.form_name !== 'enquiry' || payload.site_name !== 'hnz-school') {
     return new Response('Ignored', { status: 200 });
   }
 
