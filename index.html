@@ -321,7 +321,7 @@
 
       <div class="contact-form-area reveal">
         <h3>Send an Enquiry</h3>
-        <form id="enquiry-form" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <form id="enquiry-form" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true">
           <input type="hidden" name="form-name" value="enquiry" />
           <input type="text" name="bot-field" class="bot-field" aria-hidden="true" tabindex="-1" autocomplete="off" />
           <div class="form-row">
@@ -365,6 +365,7 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Any questions or special requirements..."></textarea>
           </div>
+          <div data-netlify-recaptcha="true"></div>
           <button type="submit" class="btn-primary">Submit Enquiry</button>
           <div id="form-success">
             ✓ Thank you! We'll be in touch within 48 hours.
