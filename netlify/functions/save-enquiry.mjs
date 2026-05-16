@@ -1,4 +1,4 @@
-import { neon } from '@netlify/database';
+import { getDatabase } from '@netlify/database';
 
 export default async (req) => {
   if (req.method !== 'POST') {
@@ -18,8 +18,7 @@ export default async (req) => {
   }
 
   const d = payload.data ?? {};
-
-  const sql = neon(process.env.DATABASE_URL);
+  const { sql } = getDatabase();
 
   await sql`
     INSERT INTO enquiries (parent_name, phone, email, child_name, grade, message)
