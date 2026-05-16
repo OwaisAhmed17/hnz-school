@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p \"/mnt/c/Users/owais/Documents/Claude/Projects/HNZ School/css\" \"/mnt/c/Users/owais/Documents/Claude/Projects/HNZ School/js\" \"/mnt/c/Users/owais/Documents/Claude/Projects/HNZ School/assets\")",
-      "Bash(cp \"/mnt/c/Users/owais/Documents/Claude/Projects/HNZ School/logo.png\" \"/mnt/c/Users/owais/Documents/Claude/Projects/HNZ School/assets/logo.png\")"
-    ]
-  }
-}
