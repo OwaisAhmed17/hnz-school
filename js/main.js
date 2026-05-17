@@ -1,10 +1,12 @@
 // Mobile nav toggle
 const toggle = document.getElementById('nav-toggle');
 const nav    = document.getElementById('main-nav');
-toggle.addEventListener('click', () => nav.classList.toggle('open'));
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => nav.classList.remove('open'));
-});
+if (toggle && nav) {
+  toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('open'));
+  });
+}
 
 // Scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
@@ -29,7 +31,8 @@ window.addEventListener('scroll', () => {
 });
 
 // Form submit — validates then posts to Netlify Forms
-document.getElementById('enquiry-form').addEventListener('submit', handleSubmit);
+const enquiryForm = document.getElementById('enquiry-form');
+if (enquiryForm) enquiryForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(e) {
   e.preventDefault();
