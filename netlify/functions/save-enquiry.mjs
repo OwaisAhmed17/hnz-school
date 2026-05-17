@@ -1,5 +1,5 @@
 import { getDatabase } from '@netlify/database';
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { timingSafeEqual } from 'node:crypto';
 
 const MAX_FIELD_LEN = 500;
 
@@ -13,26 +13,24 @@ export default async (req) => {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  // Read raw body so we can verify the signature before parsing
+  // Netlify URL notification hooks don't support HMAC signing, so we authenticate
+  // via a shared secret token in the query string — only Netlify (which stores the
+  // webhook URL) knows it. Checked with timingSafeEqual to prevent timing attacks.
+  const expectedToken = process.env.WEBHOOK_SECRET;
+  if (expectedToken) {
+    const token = new URL(req.url).searchParams.get('token') ?? '';
+    const tokBuf = Buffer.from(token.length === expectedToken.length ? token : expectedToken);
+    const expBuf = Buffer.from(expectedToken);
+    if (!timingSafeEqual(tokBuf, expBuf) || token.length !== expectedToken.length) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+  }
+
   let rawBody;
   try {
     rawBody = await req.text();
   } catch {
     return new Response('Bad request', { status: 400 });
-  }
-
-  // Verify Netlify webhook signature when WEBHOOK_SECRET env var is set.
-  // Set the secret in Netlify → Site settings → Environment variables.
-  // Netlify signs the body with HMAC-SHA256 and sends it in X-Webhook-Signature.
-  const secret = process.env.WEBHOOK_SECRET;
-  if (secret) {
-    const sig = req.headers.get('x-webhook-signature') ?? '';
-    const expected = createHmac('sha256', secret).update(rawBody).digest('hex');
-    const sigBuf = Buffer.from(sig.length === expected.length ? sig : expected);
-    const expBuf = Buffer.from(expected);
-    if (!timingSafeEqual(sigBuf, expBuf) || sig.length !== expected.length) {
-      return new Response('Unauthorized', { status: 401 });
-    }
   }
 
   let payload;
