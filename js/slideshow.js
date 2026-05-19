@@ -1,3 +1,6 @@
+const slideshow = document.querySelector('.slideshow');
+if (!slideshow) throw new Error('slideshow.js loaded on a page without .slideshow');
+
 const slides = Array.from(document.querySelectorAll('.slide'));
 const dots   = Array.from(document.querySelectorAll('.dot'));
 const counter = document.querySelector('.slide-counter');
@@ -17,7 +20,6 @@ document.querySelector('.slide-prev').addEventListener('click', () => { reset();
 document.querySelector('.slide-next').addEventListener('click', () => { reset(); goTo(current + 1); });
 dots.forEach((dot, i) => dot.addEventListener('click', () => { reset(); goTo(i); }));
 
-const slideshow = document.querySelector('.slideshow');
 slideshow.addEventListener('mouseenter', () => clearInterval(timer));
 slideshow.addEventListener('mouseleave', start);
 

@@ -120,6 +120,7 @@ nav .container {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--gold-light); }
+.nav-links a.nav-current { color: var(--gold-light); }
 .nav-links .nav-cta {
   background: var(--gold);
   color: var(--navy-dark);
@@ -609,6 +610,9 @@ nav .container {
   border-top: 1px solid var(--gray-light);
 }
 
+/* page body offset for fixed nav */
+.page-body { margin-top: var(--nav-h); }
+
 /* academics bottom strip */
 .academics-banner {
   margin-top: 60px;
@@ -619,6 +623,7 @@ nav .container {
   padding: 56px 80px;
   gap: 40px;
 }
+.academics-banner--flush { margin-top: 0; }
 .academics-banner h3 {
   font-family: var(--ff-serif);
   font-size: clamp(24px, 2.5vw, 36px);

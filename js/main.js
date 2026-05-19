@@ -22,13 +22,11 @@ revealEls.forEach(el => io.observe(el));
 
 // Nav background on scroll
 const mainNav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    mainNav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.4)';
-  } else {
-    mainNav.style.boxShadow = 'none';
-  }
-});
+if (mainNav) {
+  window.addEventListener('scroll', () => {
+    mainNav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,0.4)' : 'none';
+  });
+}
 
 // Form submit — validates then posts to Netlify Forms
 const enquiryForm = document.getElementById('enquiry-form');

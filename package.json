@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@netlify/database": "^1.0.0"
+    "@netlify/database": "^1.0.0",
+    "headroom-ai": "^0.1.0"
   }
 }

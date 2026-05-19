@@ -17,13 +17,15 @@ export default async (req) => {
   // via a shared secret token in the query string — only Netlify (which stores the
   // webhook URL) knows it. Checked with timingSafeEqual to prevent timing attacks.
   const expectedToken = process.env.WEBHOOK_SECRET;
-  if (expectedToken) {
-    const token = new URL(req.url).searchParams.get('token') ?? '';
-    const tokBuf = Buffer.from(token.length === expectedToken.length ? token : expectedToken);
-    const expBuf = Buffer.from(expectedToken);
-    if (!timingSafeEqual(tokBuf, expBuf) || token.length !== expectedToken.length) {
-      return new Response('Unauthorized', { status: 401 });
-    }
+  if (!expectedToken) {
+    console.error('WEBHOOK_SECRET env var is not set — refusing all requests');
+    return new Response('Internal Server Error', { status: 500 });
+  }
+  const token = new URL(req.url).searchParams.get('token') ?? '';
+  const tokBuf = Buffer.from(token.length === expectedToken.length ? token : expectedToken);
+  const expBuf = Buffer.from(expectedToken);
+  if (!timingSafeEqual(tokBuf, expBuf) || token.length !== expectedToken.length) {
+    return new Response('Unauthorized', { status: 401 });
   }
 
   let rawBody;
